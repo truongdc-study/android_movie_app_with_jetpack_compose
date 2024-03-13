@@ -15,4 +15,4 @@ dependencyResolutionManagement {
 
 rootProject.name = "Android Base MVVM Jetpack Compose"
 include(":app")
- 
+include(":core")
