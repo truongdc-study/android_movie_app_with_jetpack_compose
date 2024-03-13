@@ -16,7 +16,7 @@ interface UiStateDelegate<UiState, Event> {
 
     val uiStateFlow: StateFlow<UiState>
 
-    val singleEvent: Flow<Event>
+    val singleEvents: Flow<Event>
 
     val UiStateDelegate<UiState, Event>.uiState: UiState
 
@@ -49,7 +49,7 @@ class UiStateDelegateImpl<UiState, Event>(
     override val uiStateFlow: StateFlow<UiState>
         get() = uiMutableStateFlow.asStateFlow()
 
-    override val singleEvent: Flow<Event>
+    override val singleEvents: Flow<Event>
         get() = singleEventChannel.receiveAsFlow()
 
     override val UiStateDelegate<UiState, Event>.uiState: UiState
