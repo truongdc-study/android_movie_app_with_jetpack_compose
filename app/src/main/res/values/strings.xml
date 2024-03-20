@@ -1,3 +1,5 @@
 <resources>
-    <string name="app_name">Android Base MVVM Jetpack Compose</string>
+    <string name="app_name">Android Base</string>
+    <string name="ratting">Ratting:</string>
+    <string name="total_reviews">Total reviews</string>
 </resources>

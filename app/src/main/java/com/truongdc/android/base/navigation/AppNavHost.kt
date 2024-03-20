@@ -9,12 +9,17 @@ import androidx.navigation.NavHostController
 import androidx.navigation.NavOptionsBuilder
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.truongdc.android.base.screens.movie.MovieListScreen
+import com.truongdc.android.base.screens.slpash.SplashScreen
 
 @Composable
 fun NavHostController.AppNavHost() {
-    NavHost(navController = this, startDestination = AppDestination.Up.destination) {
-        composable(AppDestination.Up) {
-
+    NavHost(navController = this, startDestination = AppDestination.Splash.destination) {
+        composable(AppDestination.Splash) {
+            SplashScreen(navHostController = this@AppNavHost)
+        }
+        composable(AppDestination.MovieList) {
+            MovieListScreen(navHostController = this@AppNavHost)
         }
     }
 }

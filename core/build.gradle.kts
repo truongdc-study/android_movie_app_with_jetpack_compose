@@ -1,6 +1,8 @@
 plugins {
     id("com.android.library")
     id("org.jetbrains.kotlin.android")
+    id("kotlin-parcelize")
+    id(Plugins.KOTLIN_KAPT)
 }
 
 android {
@@ -24,11 +26,11 @@ android {
         }
     }
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_1_8
-        targetCompatibility = JavaVersion.VERSION_1_8
+        sourceCompatibility = JavaVersion.VERSION_18
+        targetCompatibility = JavaVersion.VERSION_18
     }
     kotlinOptions {
-        jvmTarget = "1.8"
+        jvmTarget = JavaVersion.VERSION_18.toString()
     }
 }
 
@@ -40,4 +42,19 @@ dependencies {
     testImplementation("junit:junit:4.13.2")
     androidTestImplementation("androidx.test.ext:junit:1.1.5")
     androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+
+    implementation(Libs.Hilt.ANDROID)
+    kapt(Libs.Hilt.COMPILER)
+
+    implementation(Libs.Kotlin.COROUTINES_ANDROID)
+
+    implementation(Libs.Retrofit.RETROFIT)
+    implementation(Libs.Retrofit.RETROFIT_MOSHI)
+
+    implementation(Libs.Moshi.MOSHI)
+    implementation(Libs.Moshi.MOSHI_ADAPTER)
+    implementation(Libs.Moshi.MOSHI_KOTLIN)
+    implementation(Libs.LOGGING_INTERCEPTOR)
+    implementation(Libs.CHUCKER)
+    implementation(Libs.TIMBER)
 }
