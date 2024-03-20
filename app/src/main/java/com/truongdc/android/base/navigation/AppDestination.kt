@@ -18,7 +18,8 @@ sealed class AppDestination(
     data class DESTINATION(val router: String) : AppDestination(router)
 
     data object Up : AppDestination()
-    data object Splash : AppDestination("Splash")
 
+    data object Splash : AppDestination("splash")
 
+    data object MovieList: AppDestination("movie_list")
 }
