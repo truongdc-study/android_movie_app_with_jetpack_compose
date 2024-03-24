@@ -1,30 +1,46 @@
 plugins {
-    id("com.android.library")
-    id("org.jetbrains.kotlin.android")
-    id("kotlin-parcelize")
+    id(Plugins.ANDROID_LIB)
+    id(Plugins.KOTLIN_ANDROID)
+    id(Plugins.KOTLIN_PARCELIZE)
     id(Plugins.KOTLIN_KAPT)
 }
 
 android {
-    namespace = "com.truongdc.android.core"
-    compileSdk = 34
+    namespace = "${Configs.NAMSPACE}.core"
+    compileSdk = Configs.COMPLIED_SDK
 
     defaultConfig {
-        minSdk = 24
-
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        minSdk = Configs.MIN_SDK
+        testInstrumentationRunner = Configs.ANDROID_JUNIT_RUNNER
         consumerProguardFiles("consumer-rules.pro")
     }
 
     buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+        getByName(Builds.Release.name) {
+            isMinifyEnabled = Builds.Release.isMinifyEnabled
+            proguardFiles(getDefaultProguardFile(Configs.PROGUARD_FILE), Configs.PROGUARD_RULES)
+        }
+
+        getByName(Builds.Debug.name) {
+            isMinifyEnabled = Builds.Debug.isMinifyEnabled
         }
     }
+
+    flavorDimensions += Builds.SHARED_DIMENSION
+    productFlavors {
+        create(Builds.Flavors.DEV) {
+            buildConfigField("String", "BASE_API_URL", "\"https://api.themoviedb.org/3/\"")
+        }
+
+        create(Builds.Flavors.STG) {
+            buildConfigField("String", "BASE_API_URL", "\"https://api.themoviedb.org/3/\"")
+        }
+
+        create(Builds.Flavors.PROD) {
+            buildConfigField("String", "BASE_API_URL", "\"https://api.themoviedb.org/3/\"")
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_18
         targetCompatibility = JavaVersion.VERSION_18
@@ -32,16 +48,27 @@ android {
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_18.toString()
     }
+    buildFeatures {
+        buildConfig = true
+    }
 }
 
 dependencies {
+    implementation(Libs.AndroidX.CORE_KTX)
+    implementation(Libs.AndroidX.APP_COMPAT)
 
-    implementation("androidx.core:core-ktx:1.12.0")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.11.0")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
+    testImplementation(platform(Libs.JUnit5.BOM))
+    testImplementation(Libs.JUnit5.JUPITER)
+    testImplementation(Libs.MOCKK)
+    testImplementation(Libs.KOTEST)
+    testImplementation(Libs.Kotlin.COROUTINES_TEST)
+    androidTestImplementation(Libs.KOTEST)
+    androidTestImplementation(Libs.TURBINE)
+    androidTestImplementation(Libs.MOCKK_ANDROID)
+    androidTestImplementation(Libs.Kotlin.COROUTINES_TEST)
+    androidTestImplementation(Libs.AndroidX.TEST_JUNIT)
+    androidTestImplementation(Libs.AndroidX.TEST_CORE_KTX)
+    androidTestImplementation(Libs.AndroidX.TEST_ESPRESSO_CORE)
 
     implementation(Libs.Hilt.ANDROID)
     kapt(Libs.Hilt.COMPILER)
@@ -54,6 +81,7 @@ dependencies {
     implementation(Libs.Moshi.MOSHI)
     implementation(Libs.Moshi.MOSHI_ADAPTER)
     implementation(Libs.Moshi.MOSHI_KOTLIN)
+
     implementation(Libs.LOGGING_INTERCEPTOR)
     implementation(Libs.CHUCKER)
     implementation(Libs.TIMBER)

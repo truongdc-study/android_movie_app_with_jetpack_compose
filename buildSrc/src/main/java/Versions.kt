@@ -1,16 +1,17 @@
 object Versions {
 
-    const val GRADLE = "8.1.3"
-    const val KOTLIN = "1.9.10"
-    const val COMPOSE_COMPILER = "1.5.3"
+    const val GRADLE = "8.2.0"
+    const val KOTLIN = "1.9.0"
+    const val COMPOSE_COMPILER = "1.5.1"
     const val HILT = "2.48"
     const val HILT_NAV_COMPOSE = "1.1.0"
     const val GOOGLE_SERVICES = "4.4.0"
     const val FIREBASE_CRASHLYTICS = "2.9.9"
 
-    const val CORE_KTX = "1.9.0"
-    const val LIFECYCLE_RUNTIME_KTX = "2.6.2"
-    const val ACTIVITY_COMPOSE = "1.8.1"
+    const val CORE_KTX = "1.12.0"
+    const val APP_COMPAT = "1.6.1"
+    const val LIFECYCLE_RUNTIME_KTX = "2.7.0"
+    const val ACTIVITY_COMPOSE = "1.8.2"
     const val SECURITY_CRYPTO = "1.0.0"
     const val CORE_TESTING = "2.2.0"
     const val TEST_CORE_KTX = "1.5.0"
@@ -18,8 +19,8 @@ object Versions {
     const val PAGING_RUNTIME = "3.3.0-alpha02"
     const val PAGING_COMPOSE = "1.0.0-alpha18"
 
-    const val COMPOSE_BOM = "2023.03.00"
-    const val NAV_COMPOSE = "2.7.5"
+    const val COMPOSE_BOM = "2024.03.00"
+    const val NAV_COMPOSE = "2.7.7"
 
     const val TEST_JUNIT = "5.10.0"
     const val TEST_ESPRESSO_CORE = "3.5.1"
@@ -67,4 +68,14 @@ object Versions {
     const val ROOM = "2.6.1"
     const val SQL_CIPHER = "4.5.3"
     const val SQL_CORE = "2.4.0"
+
+    const val GLIDE = "4.15.1"
+    const val GLIDE_COMPILE = "4.11.0"
+
+    const val FRAGMENT = "1.6.2"
+
+    const val CONSTRAIN_LAYOUT = "2.1.4"
+
+    const val MATERIAL_COMPOSE = "1.6.4"
+    const val MATERIAL = "1.11.0"
 }

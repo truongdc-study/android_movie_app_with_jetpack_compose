@@ -4,11 +4,10 @@ import android.content.Context
 import com.chuckerteam.chucker.api.ChuckerCollector
 import com.chuckerteam.chucker.api.ChuckerInterceptor
 import com.chuckerteam.chucker.api.RetentionManager
+import com.truongdc.android.base.core.BuildConfig
 import com.truongdc.android.core.source.remote.interceptors.AuthInterceptor
 import com.truongdc.android.core.source.remote.interceptors.HeaderInterceptor
 import com.truongdc.android.core.source.remote.interceptors.TokenAuthenticator
-import com.truongdc.android.core.utils.Constant
-import okhttp3.Interceptor
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
 import java.util.concurrent.TimeUnit
@@ -25,7 +24,7 @@ object OkHttpClientProvider {
         tokenAuthenticator: TokenAuthenticator? = null,
     ): OkHttpClient.Builder {
         return OkHttpClient.Builder().apply {
-            if (Constant.DEBUG) {
+            if (BuildConfig.DEBUG) {
                 addInterceptor(chuckerInterceptor)
                 addInterceptor(httpLoggingInterceptor)
             }

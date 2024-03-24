@@ -13,10 +13,11 @@ object Builds {
         const val isDebuggable = true
     }
 
-    const val SHARED_DIMENSION = "Nimble_Surveys"
+    const val SHARED_DIMENSION = "default"
 
     object Flavors {
-        const val DEV = "dev"
-        const val PROD = "prod"
+        const val DEV = "Development"
+        const val STG = "Staging"
+        const val PROD = "Production"
     }
 }

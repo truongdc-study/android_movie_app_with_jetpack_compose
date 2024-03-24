@@ -1,87 +1,117 @@
 plugins {
-    id("com.android.application")
-    id("org.jetbrains.kotlin.android")
+    id(Plugins.KOTLIN_ANDROID)
+    id(Plugins.ANDROID_APP)
     id(Plugins.KOTLIN_KAPT)
     id(Plugins.HILT_ANDROID)
 }
 
 android {
-    namespace = "com.truongdc.android.base"
-    compileSdk = 34
+    namespace = Configs.NAMSPACE
+    compileSdk = Configs.COMPLIED_SDK
 
     defaultConfig {
-        applicationId = "com.truongdc.android.base"
-        minSdk = 24
-        targetSdk = 34
-        versionCode = 1
-        versionName = "1.0"
+        applicationId = Configs.APP_ID
+        minSdk = Configs.MIN_SDK
+        targetSdk = Configs.TARGET_SDK
+        versionCode = Configs.VERSION_CODE
+        versionName = Configs.VERSION_NAME
 
-        testInstrumentationRunner = "androidx.test.runner.AndroidJUnitRunner"
+        testInstrumentationRunner = Configs.ANDROID_JUNIT_RUNNER
         vectorDrawables {
             useSupportLibrary = true
         }
     }
 
     buildTypes {
-        release {
-            isMinifyEnabled = false
-            proguardFiles(
-                getDefaultProguardFile("proguard-android-optimize.txt"),
-                "proguard-rules.pro"
-            )
+        getByName(Builds.Release.name) {
+            isMinifyEnabled = Builds.Release.isMinifyEnabled
+            isShrinkResources = Builds.Release.isShrinkResources
+            signingConfig = signingConfigs[Builds.Debug.name]
+            isDebuggable = Builds.Release.isDebuggable
+            proguardFiles(getDefaultProguardFile(Configs.PROGUARD_FILE), Configs.PROGUARD_RULES)
+        }
+
+        getByName(Builds.Debug.name) {
+            isMinifyEnabled = Builds.Debug.isMinifyEnabled
+            isShrinkResources = Builds.Debug.isShrinkResources
+            signingConfig = signingConfigs[Builds.Debug.name]
+            isDebuggable = Builds.Debug.isDebuggable
+            proguardFiles(getDefaultProguardFile(Configs.PROGUARD_FILE), Configs.PROGUARD_RULES)
         }
     }
+
+    flavorDimensions += Builds.SHARED_DIMENSION
+    productFlavors {
+        create(Builds.Flavors.DEV) {
+            applicationIdSuffix = ".${Builds.Flavors.DEV}"
+            resValue("string", "app_name", "\"Base Dev\"")
+        }
+
+        create(Builds.Flavors.STG) {
+            applicationIdSuffix = ".${Builds.Flavors.STG}"
+            resValue("string", "app_name", "\"Base Stg\"")
+        }
+
+        create(Builds.Flavors.PROD) {
+            resValue("string", "app_name", "\"Android Base\"")
+        }
+    }
+
     compileOptions {
         sourceCompatibility = JavaVersion.VERSION_18
         targetCompatibility = JavaVersion.VERSION_18
     }
+
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_18.toString()
     }
+
     buildFeatures {
         compose = true
+        viewBinding = true
     }
+
     composeOptions {
-        kotlinCompilerExtensionVersion = "1.5.1"
+        kotlinCompilerExtensionVersion = Versions.COMPOSE_COMPILER
     }
+
     packaging {
         resources {
             excludes += "/META-INF/{AL2.0,LGPL2.1}"
         }
     }
-    buildFeatures {
-        viewBinding = true
-    }
 }
 
 dependencies {
     implementation(project(Modules.CORE))
-    implementation("androidx.core:core-ktx:1.12.0")
-    implementation("androidx.lifecycle:lifecycle-runtime-ktx:2.7.0")
-    implementation("androidx.activity:activity-compose:1.8.2")
-    implementation(platform("androidx.compose:compose-bom:2024.02.02"))
-    implementation("androidx.compose.ui:ui")
-    implementation("androidx.compose.ui:ui-graphics")
-    implementation("androidx.compose.ui:ui-tooling-preview")
-    implementation("androidx.compose.material3:material3")
-    implementation("androidx.appcompat:appcompat:1.6.1")
-    implementation("com.google.android.material:material:1.11.0")
-    implementation("androidx.activity:activity:1.8.0")
-    implementation("androidx.constraintlayout:constraintlayout:2.1.4")
-    testImplementation("junit:junit:4.13.2")
-    androidTestImplementation("androidx.test.ext:junit:1.1.5")
-    androidTestImplementation("androidx.test.espresso:espresso-core:3.5.1")
-    androidTestImplementation(platform("androidx.compose:compose-bom:2024.02.02"))
-    androidTestImplementation("androidx.compose.ui:ui-test-junit4")
-    debugImplementation("androidx.compose.ui:ui-tooling")
-    debugImplementation("androidx.compose.ui:ui-test-manifest")
-    implementation("androidx.lifecycle:lifecycle-runtime-compose:2.7.0")
-    implementation ("androidx.navigation:navigation-compose:2.7.7")
-    implementation("androidx.compose.material:material:1.6.3")
-    implementation("androidx.fragment:fragment-ktx:1.6.2")
+    implementation(Libs.AndroidX.CORE_KTX)
+    implementation(Libs.AndroidX.LIFECYCLE_RUNTIME_KTX)
+    implementation(Libs.AndroidX.ACTIVITY_COMPOSE)
+    implementation(platform(Libs.AndroidX.COMPOSE_BOM))
+    implementation(Libs.AndroidX.COMPOSE_UI)
+    implementation(Libs.AndroidX.COMPOSE_UI_GRAPHICS)
+    implementation(Libs.AndroidX.COMPOSE_UI_TOOLING_PREVIEW)
+    implementation(Libs.Material.MATERIAL_3_COMPOSE)
+    implementation(Libs.AndroidX.APP_COMPAT)
+    implementation(Libs.Material.MATERIAL)
+    implementation(Libs.AndroidX.ACTIVITY_COMPOSE)
+    implementation(Libs.CONSTRAIN_LAYOUT)
 
-    implementation("com.github.bumptech.glide:glide:4.11.0")
-    implementation("com.github.bumptech.glide:compiler:4.11.0")
+    testImplementation(Libs.JUNIT)
+    androidTestImplementation(Libs.AndroidX.TEST_JUNIT)
+    androidTestImplementation(Libs.AndroidX.TEST_ESPRESSO_CORE)
+    androidTestImplementation(Libs.AndroidX.COMPOSE_UI_TEST_JUNIT4)
+    androidTestImplementation(platform(Libs.AndroidX.COMPOSE_BOM))
+    debugImplementation(Libs.AndroidX.COMPOSE_UI_TOOLING)
+    debugImplementation(Libs.AndroidX.COMPOSE_UI_TEST_MANIFEST)
+
+    implementation(Libs.AndroidX.LIFECYCLE_RUNTIME_COMPOSE)
+    implementation (Libs.AndroidX.NAV_COMPOSE)
+    implementation(Libs.Material.MATERIAL_COMPOSE)
+    implementation(Libs.FRAGMENT)
+
+    implementation(Libs.Glide.GLIDE)
+    implementation(Libs.Glide.GLIDE_COMPILE)
 
     implementation(Libs.Hilt.ANDROID)
     implementation(Libs.Hilt.NAV_COMPOSE)
