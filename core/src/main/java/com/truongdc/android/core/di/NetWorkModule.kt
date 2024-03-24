@@ -1,9 +1,9 @@
 package com.truongdc.android.core.di
 
 import com.squareup.moshi.Moshi
-import com.truongdc.android.core.source.remote.provides.ConverterFactoryProvider
+import com.truongdc.android.base.core.BuildConfig
 import com.truongdc.android.core.source.remote.api.ApiService
-import com.truongdc.android.core.utils.Constant
+import com.truongdc.android.core.source.remote.provides.ConverterFactoryProvider
 import com.truongdc.android.core.source.remote.provides.MoshiBuilderProvider
 import com.truongdc.android.core.source.remote.provides.RetrofitProvider
 import dagger.Module
@@ -11,11 +11,8 @@ import dagger.Provides
 import dagger.hilt.InstallIn
 import dagger.hilt.components.SingletonComponent
 import okhttp3.OkHttpClient
-import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Converter
 import retrofit2.Retrofit
-import retrofit2.converter.moshi.MoshiConverterFactory
-import javax.inject.Singleton
 
 @Module
 @InstallIn(SingletonComponent::class)
@@ -23,7 +20,7 @@ class NetWorkModule {
 
     @Provides
     fun providerBaseUrl(): String {
-        return Constant.BASE_URL
+        return BuildConfig.BASE_API_URL
     }
 
     @Provides

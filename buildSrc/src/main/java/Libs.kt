@@ -2,6 +2,7 @@ object Libs {
 
     object AndroidX {
         const val CORE_KTX = "androidx.core:core-ktx:${Versions.CORE_KTX}"
+        const val APP_COMPAT = "androidx.appcompat:appcompat:${Versions.APP_COMPAT}"
         const val LIFECYCLE_RUNTIME_KTX =
             "androidx.lifecycle:lifecycle-runtime-ktx:${Versions.LIFECYCLE_RUNTIME_KTX}"
         const val LIFECYCLE_RUNTIME_COMPOSE =
@@ -15,7 +16,8 @@ object Libs {
         const val COMPOSE_UI_GRAPHICS = "androidx.compose.ui:ui-graphics"
         const val COMPOSE_UI_TOOLING_PREVIEW = "androidx.compose.ui:ui-tooling-preview"
         const val COMPOSE_UI_TEST_JUNIT4 = "androidx.compose.ui:ui-test-junit4"
-        const val COMPOSE_UI_TEST_JUNIT5 = "de.mannodermaus.junit5:android-test-compose:${Versions.COMPOSE_JUNIT5}"
+        const val COMPOSE_UI_TEST_JUNIT5 =
+            "de.mannodermaus.junit5:android-test-compose:${Versions.COMPOSE_JUNIT5}"
         const val COMPOSE_UI_TOOLING = "androidx.compose.ui:ui-tooling"
         const val COMPOSE_UI_TEST_MANIFEST = "androidx.compose.ui:ui-test-manifest"
         const val COMPOSE_MATERIAL = "androidx.compose.material:material"
@@ -86,12 +88,14 @@ object Libs {
     }
 
     const val COIL_COMPOSE = "io.coil-kt:coil-compose:${Versions.COIL}"
-
     const val JUNIT = "junit:junit:${Versions.JUNIT}"
     const val MOCKK = "io.mockk:mockk:${Versions.MOCKK}"
     const val MOCKK_ANDROID = "io.mockk:mockk-android:${Versions.MOCKK}"
     const val KOTEST = "io.kotest:kotest-assertions-core:${Versions.KOTEST}"
     const val TURBINE = "app.cash.turbine:turbine:${Versions.TURBINE}"
+    const val FRAGMENT = "androidx.fragment:fragment-ktx:${Versions.FRAGMENT}"
+    const val CONSTRAIN_LAYOUT =
+        "androidx.constraintlayout:constraintlayout:${Versions.CONSTRAIN_LAYOUT}"
 
     object Protobuf {
         const val PROTOC = "com.google.protobuf:protoc:${Versions.PROTOC}"
@@ -120,5 +124,17 @@ object Libs {
         const val PAGING_COMPOSE = "androidx.paging:paging-compose:${Versions.PAGING_COMPOSE}"
         const val PAGING_TEST = "androidx.paging:paging-testing:${Versions.PAGING_RUNTIME}"
         const val PAGING_COMMON = "androidx.paging:paging-common-ktx:${Versions.PAGING_RUNTIME}"
+    }
+
+    object Glide {
+        const val GLIDE = "com.github.bumptech.glide:glide:${Versions.GLIDE}"
+        const val GLIDE_COMPILE = "com.github.bumptech.glide:compiler:${Versions.GLIDE_COMPILE}"
+    }
+
+    object Material {
+        const val MATERIAL_3_COMPOSE = "androidx.compose.material3:material3"
+        const val MATERIAL_COMPOSE =
+            "androidx.compose.material:material:${Versions.MATERIAL_COMPOSE}"
+        const val MATERIAL = "com.google.android.material:material:${Versions.MATERIAL}"
     }
 }

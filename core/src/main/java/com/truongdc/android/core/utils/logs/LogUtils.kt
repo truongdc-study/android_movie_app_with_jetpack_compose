@@ -1,30 +1,29 @@
 package com.truongdc.android.core.utils.logs
 
-import android.util.Log
-import com.truongdc.android.core.utils.Constant
+import com.truongdc.android.base.core.BuildConfig
 import timber.log.Timber
 
 object LogUtils {
     fun d(tag: String, message: String) {
-        if (Constant.DEBUG) {
+        if (BuildConfig.DEBUG) {
             Timber.d(tag, message)
         }
     }
 
     fun e(tag: String, msg: String) {
-        if (Constant.DEBUG) {
+        if (BuildConfig.DEBUG) {
             Timber.e(tag, msg)
         }
     }
 
     fun e(tag: String, msg: String, throwable: Throwable) {
-        if (Constant.DEBUG) {
+        if (BuildConfig.DEBUG) {
             Timber.e(tag, msg, throwable)
         }
     }
 
     fun thread() {
-        if (Constant.DEBUG) {
+        if (BuildConfig.DEBUG) {
             Timber.e("THREAD", "${Thread.currentThread().name} has run.")
         }
     }

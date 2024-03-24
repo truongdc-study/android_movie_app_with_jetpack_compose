@@ -1,7 +1,7 @@
 package com.truongdc.android.base
 
 import android.app.Application
-import com.truongdc.android.core.utils.Constant
+import com.truongdc.android.base.core.BuildConfig
 import dagger.hilt.android.HiltAndroidApp
 import timber.log.Timber
 
@@ -9,7 +9,7 @@ import timber.log.Timber
 class MyApplication : Application() {
     override fun onCreate() {
         super.onCreate()
-        if (Constant.DEBUG) {
+        if (BuildConfig.DEBUG) {
             Timber.plant(Timber.DebugTree())
         }
     }

@@ -3,7 +3,6 @@ package com.truongdc.android.base.screens.movie
 //noinspection UsingMaterialAndMaterial3Libraries
 import android.annotation.SuppressLint
 import android.content.Intent
-import android.widget.Toast
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.Arrangement
@@ -55,7 +54,7 @@ import com.truongdc.android.base.utils.uistate.collectErrorResponseEffect
 import com.truongdc.android.base.utils.uistate.collectLoadingWithLifecycle
 import com.truongdc.android.base.utils.uistate.collectWithLifecycle
 import com.truongdc.android.core.model.Movie
-import com.truongdc.android.core.utils.Constant
+import com.truongdc.android.core.utils.Constants
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -121,7 +120,7 @@ private fun MovieItem(movie: Movie, onClickItem: (Int) -> Unit) {
         ) {
             Row {
                 Image(
-                    painter = rememberAsyncImagePainter(Constant.BASE_URL_IMAGE + movie.urlImage),
+                    painter = rememberAsyncImagePainter(Constants.BASE_URL_IMAGE + movie.urlImage),
                     contentDescription = null,
                     modifier = Modifier
                         .width(80.dp)
