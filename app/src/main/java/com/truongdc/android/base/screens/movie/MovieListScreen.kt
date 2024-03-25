@@ -44,9 +44,14 @@ import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
+import androidx.paging.LoadState
+import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.rememberAsyncImagePainter
 import com.truongdc.android.base.R
+import com.truongdc.android.base.components.ErrorMessage
 import com.truongdc.android.base.components.LoadingContent
+import com.truongdc.android.base.components.LoadingNextPageItem
+import com.truongdc.android.base.components.PageLoader
 import com.truongdc.android.base.screens.movie_detail.MovieDetailActivity
 import com.truongdc.android.base.utils.extensions.showToast
 import com.truongdc.android.base.utils.uistate.collectErrorEffect
@@ -55,6 +60,7 @@ import com.truongdc.android.base.utils.uistate.collectLoadingWithLifecycle
 import com.truongdc.android.base.utils.uistate.collectWithLifecycle
 import com.truongdc.android.core.model.Movie
 import com.truongdc.android.core.utils.Constants
+import java.util.concurrent.Flow
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -85,13 +91,48 @@ fun MovieListScreen(
             viewModel.requestMovie()
         }
         LoadingContent(isLoading = isLoading) {
-            LazyColumn(modifier = Modifier.padding(it)) {
-                items(uiState.mListMovie) { movie ->
-                    MovieItem(movie = movie, onClickItem = { movieId ->
-                        val intent = Intent(context, MovieDetailActivity::class.java)
-                        intent.putExtra("MOVIE_ID", movieId)
-                        context.startActivity(intent)
-                    })
+            uiState.flowPagingMovie?.let {pagingData ->
+                val pagingItems = pagingData.collectAsLazyPagingItems()
+                LazyColumn(modifier = Modifier.padding(it)) {
+                    item { Spacer(modifier = Modifier.padding(5.dp)) }
+                    items(pagingItems.itemCount) { index ->
+                        MovieItem(movie = pagingItems[index]!!, onClickItem = { movieId ->
+                            val intent = Intent(context, MovieDetailActivity::class.java)
+                            intent.putExtra("MOVIE_ID", movieId)
+                            context.startActivity(intent)
+                        })
+                    }
+                    pagingItems.apply {
+                        when {
+                            loadState.refresh is LoadState.Loading -> {
+                                item { PageLoader(modifier = Modifier.fillParentMaxSize()) }
+                            }
+
+                            loadState.refresh is LoadState.Error -> {
+                                val error = pagingItems.loadState.refresh as LoadState.Error
+                                item {
+                                    ErrorMessage(
+                                        modifier = Modifier.fillParentMaxSize(),
+                                        message = error.error.localizedMessage!!,
+                                        onClickRetry = { retry() })
+                                }
+                            }
+
+                            loadState.append is LoadState.Loading -> {
+                                item { LoadingNextPageItem(modifier = Modifier) }
+                            }
+
+                            loadState.append is LoadState.Error -> {
+                                val error = pagingItems.loadState.append as LoadState.Error
+                                item {
+                                    ErrorMessage(
+                                        modifier = Modifier,
+                                        message = error.error.localizedMessage!!,
+                                        onClickRetry = { retry() })
+                                }
+                            }
+                        }
+                    }
                 }
             }
         }

@@ -8,8 +8,8 @@ import com.truongdc.android.core.utils.Constants
 
 class MovieRemoteImpl(private val apiService: ApiService) : MovieDataSource.Remote {
 
-    override suspend fun getMovies(): BaseResponse<List<Movie>> {
-        return apiService.getTopRateMovies(apiKey = Constants.BASE_API_KEY)
+    override suspend fun getMovies(apiKey: String, pageNumber: Int): BaseResponse<List<Movie>> {
+        return apiService.getTopRateMovies(apiKey = Constants.BASE_API_KEY, page = pageNumber)
     }
 
     override suspend fun getMovieDetail(movieId: Int): Movie {
