@@ -85,4 +85,9 @@ dependencies {
     implementation(Libs.LOGGING_INTERCEPTOR)
     implementation(Libs.CHUCKER)
     implementation(Libs.TIMBER)
+
+    implementation(Libs.Paging.PAGING_COMMON)
+    implementation(Libs.Paging.PAGING_COMPOSE)
+    implementation(Libs.Paging.PAGING_TEST)
+    implementation(Libs.Paging.PAGING_RUNTIME)
 }

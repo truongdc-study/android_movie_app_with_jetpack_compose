@@ -122,4 +122,9 @@ dependencies {
     implementation(Libs.COIL_COMPOSE)
 
     implementation(Libs.TIMBER)
+
+    implementation(Libs.Paging.PAGING_COMMON)
+    implementation(Libs.Paging.PAGING_COMPOSE)
+    implementation(Libs.Paging.PAGING_TEST)
+    implementation(Libs.Paging.PAGING_RUNTIME)
 }
