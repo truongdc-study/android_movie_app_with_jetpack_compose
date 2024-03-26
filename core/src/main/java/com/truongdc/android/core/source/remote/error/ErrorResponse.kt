@@ -4,6 +4,7 @@ import com.squareup.moshi.Json
 import com.squareup.moshi.JsonClass
 import com.squareup.moshi.Moshi
 import com.squareup.moshi.kotlin.reflect.KotlinJsonAdapterFactory
+import com.truongdc.android.core.source.remote.provides.MoshiBuilderProvider
 import com.truongdc.android.core.utils.logs.LogUtils
 import retrofit2.HttpException
 import java.io.IOException
@@ -36,7 +37,7 @@ data class ErrorResponse(
 
                 response.errorBody()?.let {
                     return try {
-                        val moshi = Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+                        val moshi = MoshiBuilderProvider.moshiBuilder.build()
                         val adapter = moshi.adapter(ErrorResponse::class.java)
                         val errorResponse = adapter.fromJson(it.string())
                         if (errorResponse != null && !errorResponse.messages.isNullOrBlank()) {
