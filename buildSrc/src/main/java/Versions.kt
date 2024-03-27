@@ -78,4 +78,6 @@ object Versions {
 
     const val MATERIAL_COMPOSE = "1.6.4"
     const val MATERIAL = "1.11.0"
+
+    const val LEAK_CANARY ="2.13"
 }

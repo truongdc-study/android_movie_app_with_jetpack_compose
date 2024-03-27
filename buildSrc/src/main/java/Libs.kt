@@ -96,6 +96,7 @@ object Libs {
     const val FRAGMENT = "androidx.fragment:fragment-ktx:${Versions.FRAGMENT}"
     const val CONSTRAIN_LAYOUT =
         "androidx.constraintlayout:constraintlayout:${Versions.CONSTRAIN_LAYOUT}"
+    const val LEAK_CANARY = "com.squareup.leakcanary:leakcanary-android:${Versions.LEAK_CANARY}"
 
     object Protobuf {
         const val PROTOC = "com.google.protobuf:protoc:${Versions.PROTOC}"
