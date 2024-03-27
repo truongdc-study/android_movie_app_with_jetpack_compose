@@ -106,7 +106,7 @@ dependencies {
     debugImplementation(Libs.AndroidX.COMPOSE_UI_TEST_MANIFEST)
 
     implementation(Libs.AndroidX.LIFECYCLE_RUNTIME_COMPOSE)
-    implementation (Libs.AndroidX.NAV_COMPOSE)
+    implementation(Libs.AndroidX.NAV_COMPOSE)
     implementation(Libs.Material.MATERIAL_COMPOSE)
     implementation(Libs.FRAGMENT)
 
@@ -127,4 +127,6 @@ dependencies {
     implementation(Libs.Paging.PAGING_COMPOSE)
     implementation(Libs.Paging.PAGING_TEST)
     implementation(Libs.Paging.PAGING_RUNTIME)
+
+    debugImplementation(Libs.LEAK_CANARY)
 }
