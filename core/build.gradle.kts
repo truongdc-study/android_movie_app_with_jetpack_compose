@@ -57,19 +57,6 @@ dependencies {
     implementation(Libs.AndroidX.CORE_KTX)
     implementation(Libs.AndroidX.APP_COMPAT)
 
-    testImplementation(platform(Libs.JUnit5.BOM))
-    testImplementation(Libs.JUnit5.JUPITER)
-    testImplementation(Libs.MOCKK)
-    testImplementation(Libs.KOTEST)
-    testImplementation(Libs.Kotlin.COROUTINES_TEST)
-    androidTestImplementation(Libs.KOTEST)
-    androidTestImplementation(Libs.TURBINE)
-    androidTestImplementation(Libs.MOCKK_ANDROID)
-    androidTestImplementation(Libs.Kotlin.COROUTINES_TEST)
-    androidTestImplementation(Libs.AndroidX.TEST_JUNIT)
-    androidTestImplementation(Libs.AndroidX.TEST_CORE_KTX)
-    androidTestImplementation(Libs.AndroidX.TEST_ESPRESSO_CORE)
-
     implementation(Libs.Hilt.ANDROID)
     kapt(Libs.Hilt.COMPILER)
 

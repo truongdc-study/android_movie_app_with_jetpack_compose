@@ -96,37 +96,21 @@ dependencies {
     implementation(Libs.Material.MATERIAL)
     implementation(Libs.AndroidX.ACTIVITY_COMPOSE)
     implementation(Libs.CONSTRAIN_LAYOUT)
-
-    testImplementation(Libs.JUNIT)
-    androidTestImplementation(Libs.AndroidX.TEST_JUNIT)
-    androidTestImplementation(Libs.AndroidX.TEST_ESPRESSO_CORE)
-    androidTestImplementation(Libs.AndroidX.COMPOSE_UI_TEST_JUNIT4)
-    androidTestImplementation(platform(Libs.AndroidX.COMPOSE_BOM))
-    debugImplementation(Libs.AndroidX.COMPOSE_UI_TOOLING)
-    debugImplementation(Libs.AndroidX.COMPOSE_UI_TEST_MANIFEST)
-
     implementation(Libs.AndroidX.LIFECYCLE_RUNTIME_COMPOSE)
     implementation(Libs.AndroidX.NAV_COMPOSE)
     implementation(Libs.Material.MATERIAL_COMPOSE)
     implementation(Libs.FRAGMENT)
-
     implementation(Libs.Glide.GLIDE)
     implementation(Libs.Glide.GLIDE_COMPILE)
-
     implementation(Libs.Hilt.ANDROID)
     implementation(Libs.Hilt.NAV_COMPOSE)
     kapt(Libs.Hilt.COMPILER)
-
     implementation(Libs.Kotlin.COROUTINES_ANDROID)
-
     implementation(Libs.COIL_COMPOSE)
-
     implementation(Libs.TIMBER)
-
     implementation(Libs.Paging.PAGING_COMMON)
     implementation(Libs.Paging.PAGING_COMPOSE)
     implementation(Libs.Paging.PAGING_TEST)
     implementation(Libs.Paging.PAGING_RUNTIME)
-
     debugImplementation(Libs.LEAK_CANARY)
 }
