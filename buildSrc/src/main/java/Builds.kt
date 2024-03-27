@@ -16,8 +16,8 @@ object Builds {
     const val SHARED_DIMENSION = "default"
 
     object Flavors {
-        const val DEV = "Development"
-        const val STG = "Staging"
-        const val PROD = "Production"
+        const val DEV = "dev"
+        const val STG = "stg"
+        const val PROD = "prod"
     }
 }
