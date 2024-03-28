@@ -1,4 +1,4 @@
-package com.truongdc.android.core.di
+package com.truongdc.android.core.di.modules
 
 import com.squareup.moshi.Moshi
 import com.truongdc.android.base.core.BuildConfig

@@ -27,7 +27,6 @@ class MovieListViewModel @Inject constructor(
     }
 
     fun requestMovie() {
-
         launchTaskSync(isLoading = true, onRequest = {
             movieRepository.getMovies()
         }, onSuccess = { mFlowPagingMovie ->

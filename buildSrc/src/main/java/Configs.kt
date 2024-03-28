@@ -1,7 +1,7 @@
 object Configs {
 
     const val APP_ID = "com.truongdc.android.base"
-    const val NAMSPACE = "com.truongdc.android.base"
+    const val NAMESPACE = "com.truongdc.android.base"
 
     const val VERSION_CODE = 1
     const val VERSION_NAME = "1.0.0"

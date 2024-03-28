@@ -80,4 +80,6 @@ object Versions {
     const val MATERIAL = "1.11.0"
 
     const val LEAK_CANARY ="2.13"
+
+    const val DATA_STORE = "1.0.0"
 }

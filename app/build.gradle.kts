@@ -6,7 +6,7 @@ plugins {
 }
 
 android {
-    namespace = Configs.NAMSPACE
+    namespace = Configs.NAMESPACE
     compileSdk = Configs.COMPLIED_SDK
 
     defaultConfig {

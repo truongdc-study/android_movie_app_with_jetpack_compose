@@ -80,13 +80,6 @@ object Libs {
         const val CRASHLYTICS = "com.google.firebase:firebase-crashlytics"
     }
 
-    object Datastore {
-        const val SECURITY_DATASTORE =
-            "io.github.osipxd:security-crypto-datastore:${Versions.SECURITY_DATASTORE}"
-        const val SECURITY_DATASTORE_PREFERENCES =
-            "io.github.osipxd:security-crypto-datastore-preferences:${Versions.SECURITY_DATASTORE}"
-    }
-
     const val COIL_COMPOSE = "io.coil-kt:coil-compose:${Versions.COIL}"
     const val JUNIT = "junit:junit:${Versions.JUNIT}"
     const val MOCKK = "io.mockk:mockk:${Versions.MOCKK}"
@@ -137,5 +130,12 @@ object Libs {
         const val MATERIAL_COMPOSE =
             "androidx.compose.material:material:${Versions.MATERIAL_COMPOSE}"
         const val MATERIAL = "com.google.android.material:material:${Versions.MATERIAL}"
+    }
+
+    object DataStore {
+        const val DATA_STORE_PROTO = "androidx.datastore:datastore:${Versions.DATA_STORE}"
+        const val DATA_STORE_PROTO_CORE = "androidx.datastore:datastore-core:${Versions.DATA_STORE}"
+        const val DATA_STORE_PREFERENCES =
+            "androidx.datastore:datastore-preferences:${Versions.DATA_STORE}"
     }
 }
