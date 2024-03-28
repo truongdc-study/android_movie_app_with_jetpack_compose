@@ -1,4 +1,4 @@
-package com.truongdc.android.core.di
+package com.truongdc.android.core.di.modules
 
 import android.content.Context
 import com.chuckerteam.chucker.api.ChuckerInterceptor

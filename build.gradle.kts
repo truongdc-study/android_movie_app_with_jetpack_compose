@@ -7,4 +7,5 @@ plugins {
     id(Plugins.KOTLIN_JVM) version Versions.KOTLIN apply false
 
     id(Plugins.HILT_ANDROID) version Versions.HILT apply false
+    id(Plugins.PROTOBUF) version Versions.PROTOBUF apply false
 }

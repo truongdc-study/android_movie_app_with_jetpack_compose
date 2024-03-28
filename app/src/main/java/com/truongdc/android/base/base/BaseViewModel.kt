@@ -22,6 +22,7 @@ abstract class BaseViewModel : ViewModel() {
                 val throwable = asynchronousTasks.exception
                 onError(throwable)
                 ErrorResponse.convertToRetrofitException(throwable).run {
+                    this.message
                     val errorResponse = getErrorResponse()
                     if (errorResponse != null) {
                         onSendErrorResponse(errorResponse)

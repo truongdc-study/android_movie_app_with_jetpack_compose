@@ -20,9 +20,9 @@ class RetrofitException : RuntimeException {
         responses = response
     }
 
-    constructor(type: String, response: ErrorResponse?) {
+    constructor(type: String, errorResponse: ErrorResponse?) {
         errorType = type
-        errorResponse = response
+        this.errorResponse = errorResponse
     }
 
     fun getErrorResponse() = errorResponse
@@ -94,7 +94,7 @@ class RetrofitException : RuntimeException {
         }
 
         fun toServerError(response: ErrorResponse): RetrofitException {
-            return RetrofitException(Type.SERVER, response)
+            return RetrofitException( type = Type.SERVER, errorResponse =  response)
         }
     }
 }

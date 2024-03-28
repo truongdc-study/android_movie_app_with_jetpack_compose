@@ -1,4 +1,4 @@
-package com.truongdc.android.core.di
+package com.truongdc.android.core.di.modules
 
 import com.truongdc.android.core.source.MovieDataSource
 import com.truongdc.android.core.source.remote.MovieRemoteImpl

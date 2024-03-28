@@ -1,4 +1,4 @@
-package com.truongdc.android.core.di
+package com.truongdc.android.core.di.modules
 
 import com.truongdc.android.core.di.annotations.DefaultDispatcher
 import com.truongdc.android.core.di.annotations.IoDispatcher
