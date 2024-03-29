@@ -82,4 +82,6 @@ object Versions {
     const val LEAK_CANARY ="2.13"
 
     const val DATA_STORE = "1.0.0"
+
+    const val UI_TOOL_PREVIEW = "1.6.4"
 }

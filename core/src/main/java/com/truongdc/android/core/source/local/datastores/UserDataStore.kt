@@ -55,7 +55,9 @@ class UserDataStoreImpl @Inject constructor(@ApplicationContext private val cont
     }
 
     override suspend fun clearAll() {
-
+        context.dataStore.updateData { userProto ->
+            userProto.toBuilder().clear().build()
+        }
     }
 
     private object UserSerialize : Serializer<UserProto> {

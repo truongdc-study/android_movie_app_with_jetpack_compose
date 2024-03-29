@@ -104,6 +104,7 @@ dependencies {
     implementation(Libs.Glide.GLIDE_COMPILE)
     implementation(Libs.Hilt.ANDROID)
     implementation(Libs.Hilt.NAV_COMPOSE)
+    debugImplementation(Libs.AndroidX.COMPOSE_UI_TOOLING_PREVIEW_DEBUG)
     kapt(Libs.Hilt.COMPILER)
     implementation(Libs.Kotlin.COROUTINES_ANDROID)
     implementation(Libs.COIL_COMPOSE)
