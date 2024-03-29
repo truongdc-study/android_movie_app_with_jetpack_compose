@@ -13,11 +13,11 @@
         android:label="@string/app_name"
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
-        android:theme="@style/Theme.Androiduistatedelegate"
+        android:theme="@style/Theme.AndroidBaseMVVMJetpackCompose"
         tools:targetApi="31">
         <activity
             android:name=".screens.movie_detail.MovieDetailActivity"
-            android:theme="@style/Theme.OldFlow"
+            android:theme="@style/Theme.XML"
             android:exported="false" />
         <activity
             android:name=".MainActivity"

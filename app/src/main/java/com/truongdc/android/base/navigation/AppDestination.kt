@@ -22,4 +22,8 @@ sealed class AppDestination(
     data object Splash : AppDestination("splash")
 
     data object MovieList: AppDestination("movie_list")
+
+    data object Login: AppDestination("login")
+
+    data object Register: AppDestination("register")
 }

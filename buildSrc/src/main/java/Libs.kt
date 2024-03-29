@@ -15,6 +15,7 @@ object Libs {
         const val COMPOSE_UI = "androidx.compose.ui:ui"
         const val COMPOSE_UI_GRAPHICS = "androidx.compose.ui:ui-graphics"
         const val COMPOSE_UI_TOOLING_PREVIEW = "androidx.compose.ui:ui-tooling-preview"
+        const val COMPOSE_UI_TOOLING_PREVIEW_DEBUG = "androidx.compose.ui:ui-tooling:${Versions.UI_TOOL_PREVIEW}"
         const val COMPOSE_UI_TEST_JUNIT4 = "androidx.compose.ui:ui-test-junit4"
         const val COMPOSE_UI_TEST_JUNIT5 =
             "de.mannodermaus.junit5:android-test-compose:${Versions.COMPOSE_JUNIT5}"

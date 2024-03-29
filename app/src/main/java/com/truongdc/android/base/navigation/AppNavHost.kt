@@ -9,7 +9,9 @@ import androidx.navigation.NavHostController
 import androidx.navigation.NavOptionsBuilder
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.truongdc.android.base.screens.login.LoginScreen
 import com.truongdc.android.base.screens.movie.MovieListScreen
+import com.truongdc.android.base.screens.register.RegisterScreen
 import com.truongdc.android.base.screens.slpash.SplashScreen
 
 @Composable
@@ -20,6 +22,12 @@ fun NavHostController.AppNavHost() {
         }
         composable(AppDestination.MovieList) {
             MovieListScreen(navHostController = this@AppNavHost)
+        }
+        composable(AppDestination.Login) {
+            LoginScreen(navHostController = this@AppNavHost)
+        }
+        composable(AppDestination.Register) {
+            RegisterScreen(navHostController = this@AppNavHost)
         }
     }
 }

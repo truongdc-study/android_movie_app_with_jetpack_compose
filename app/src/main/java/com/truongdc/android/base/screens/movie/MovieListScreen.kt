@@ -5,6 +5,7 @@ import android.annotation.SuppressLint
 import android.content.Intent
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
+import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
@@ -15,7 +16,6 @@ import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.lazy.LazyColumn
-import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.Card
 import androidx.compose.material3.CardDefaults
@@ -36,8 +36,10 @@ import androidx.compose.ui.graphics.Color.Companion.Black
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
+import androidx.compose.ui.platform.LocalLifecycleOwner
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import androidx.compose.ui.unit.sp
@@ -52,15 +54,20 @@ import com.truongdc.android.base.components.ErrorMessage
 import com.truongdc.android.base.components.LoadingContent
 import com.truongdc.android.base.components.LoadingNextPageItem
 import com.truongdc.android.base.components.PageLoader
+import com.truongdc.android.base.navigation.AppDestination
+import com.truongdc.android.base.navigation.navigate
 import com.truongdc.android.base.screens.movie_detail.MovieDetailActivity
+import com.truongdc.android.base.ui.theme.BlackCard
+import com.truongdc.android.base.ui.theme.Indigo500
+import com.truongdc.android.base.ui.theme.Yellow
 import com.truongdc.android.base.utils.extensions.showToast
 import com.truongdc.android.base.utils.uistate.collectErrorEffect
 import com.truongdc.android.base.utils.uistate.collectErrorResponseEffect
+import com.truongdc.android.base.utils.uistate.collectEvent
 import com.truongdc.android.base.utils.uistate.collectLoadingWithLifecycle
 import com.truongdc.android.base.utils.uistate.collectWithLifecycle
 import com.truongdc.android.core.model.Movie
 import com.truongdc.android.core.utils.Constants
-import java.util.concurrent.Flow
 
 @OptIn(ExperimentalMaterial3Api::class, ExperimentalComposeUiApi::class)
 @SuppressLint("UnusedMaterial3ScaffoldPaddingParameter")
@@ -70,6 +77,7 @@ fun MovieListScreen(
     viewModel: MovieListViewModel = hiltViewModel()
 ) {
     val context = LocalContext.current
+    val lifecycle = LocalLifecycleOwner.current
     val isLoading by viewModel.collectLoadingWithLifecycle()
     val uiState by viewModel.collectWithLifecycle()
     with(viewModel) {
@@ -79,19 +87,62 @@ fun MovieListScreen(
         collectErrorResponseEffect {
             context.showToast("ErrorResponse: ${it.messages}")
         }
+        collectEvent(lifecycle) { event ->
+            when (event) {
+                is MovieListViewModel.Event.LogOutSuccess -> {
+                    context.showToast("LogOut Success!")
+                    navHostController.navigate(AppDestination.Splash) {
+                        popUpTo(AppDestination.MovieList.route) { inclusive = true }
+                    }
+                }
+
+                is MovieListViewModel.Event.LogOutFailed -> {
+                    context.showToast("LogOut Failed, Please try again!")
+                }
+            }
+        }
     }
     Scaffold(
         topBar = {
             TopAppBar(title = {
-                Text(text = "Movie list", overflow = TextOverflow.Ellipsis, color = Black)
-            }, colors = TopAppBarDefaults.topAppBarColors(White))
+                Row(
+                    verticalAlignment = Alignment.CenterVertically
+                ) {
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_movie),
+                        colorFilter = androidx.compose.ui.graphics.ColorFilter.tint(color = Color.Black),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .padding(end = 8.dp, start = 16.dp)
+                            .width(30.dp)
+                            .height(30.dp)
+                    )
+                    Text(
+                        text = "MOVIE APP",
+                        fontSize = 18.sp,
+                        fontWeight = FontWeight.Bold,
+                        textAlign = TextAlign.Center
+                    )
+                    Spacer(modifier = Modifier.weight(1f))
+                    Image(
+                        painter = painterResource(id = R.drawable.ic_logout),
+                        colorFilter = androidx.compose.ui.graphics.ColorFilter.tint(color = Indigo500),
+                        contentDescription = null,
+                        modifier = Modifier
+                            .padding(end = 24.dp)
+                            .clickable {
+                                viewModel.onHandleLogOut()
+                            }
+                    )
+                }
+            }, colors = TopAppBarDefaults.topAppBarColors(Yellow))
         },
     ) {
         LaunchedEffect(key1 = Unit) {
             viewModel.requestMovie()
         }
         LoadingContent(isLoading = isLoading) {
-            uiState.flowPagingMovie?.let {pagingData ->
+            uiState.flowPagingMovie?.let { pagingData ->
                 val pagingItems = pagingData.collectAsLazyPagingItems()
                 LazyColumn(modifier = Modifier.padding(it)) {
                     item { Spacer(modifier = Modifier.padding(5.dp)) }
@@ -150,10 +201,11 @@ private fun MovieItem(movie: Movie, onClickItem: (Int) -> Unit) {
             onClickItem(movie.id)
         },
         colors = CardDefaults.cardColors(
-            containerColor = Color.Unspecified,
+            containerColor = BlackCard,
         ),
         elevation = CardDefaults.cardElevation(
-            defaultElevation = 5.dp
+            defaultElevation = 8.dp,
+            pressedElevation = 10.dp
         )
     ) {
         Column(
@@ -169,7 +221,7 @@ private fun MovieItem(movie: Movie, onClickItem: (Int) -> Unit) {
                         .clip(
                             RoundedCornerShape(10.dp)
                         ),
-                    contentScale = ContentScale.Crop
+                    contentScale = ContentScale.FillBounds
                 )
                 Column(
                     modifier = Modifier
@@ -178,20 +230,27 @@ private fun MovieItem(movie: Movie, onClickItem: (Int) -> Unit) {
                 ) {
                     Text(
                         text = movie.title,
-                        fontSize = 18.sp,
+                        fontSize = 16.sp,
+                        color = White,
                         fontWeight = FontWeight.Bold,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
-                    Spacer(modifier = Modifier.size(10.dp))
-                    Text(text = movie.overView, maxLines = 1, overflow = TextOverflow.Ellipsis)
+                    Spacer(modifier = Modifier.size(6.dp))
+                    Text(
+                        text = movie.overView,
+                        fontSize = 14.sp,
+                        color = White,
+                        maxLines = 2,
+                        overflow = TextOverflow.Ellipsis
+                    )
                 }
             }
             Row(
                 horizontalArrangement = Arrangement.End,
                 modifier = Modifier.fillMaxWidth()
             ) {
-                Text(text = movie.vote.toString())
+                Text(text = movie.vote.toString(), color = White)
                 Spacer(modifier = Modifier.size(6.dp))
                 Image(painter = painterResource(id = R.drawable.ic_star), contentDescription = null)
             }
