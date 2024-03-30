@@ -31,8 +31,7 @@ import androidx.compose.ui.Alignment
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
-import androidx.compose.ui.graphics.Color
-import androidx.compose.ui.graphics.Color.Companion.Black
+import androidx.compose.ui.draw.shadow
 import androidx.compose.ui.graphics.Color.Companion.White
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
@@ -42,7 +41,6 @@ import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
@@ -57,9 +55,9 @@ import com.truongdc.android.base.components.PageLoader
 import com.truongdc.android.base.navigation.AppDestination
 import com.truongdc.android.base.navigation.navigate
 import com.truongdc.android.base.screens.movie_detail.MovieDetailActivity
-import com.truongdc.android.base.ui.theme.BlackCard
-import com.truongdc.android.base.ui.theme.Indigo500
-import com.truongdc.android.base.ui.theme.Yellow
+import com.truongdc.android.base.ui.theme.AppColors
+import com.truongdc.android.base.ui.theme.DpSize
+import com.truongdc.android.base.ui.theme.SpSize
 import com.truongdc.android.base.utils.extensions.showToast
 import com.truongdc.android.base.utils.uistate.collectErrorEffect
 import com.truongdc.android.base.utils.uistate.collectErrorResponseEffect
@@ -90,7 +88,7 @@ fun MovieListScreen(
         collectEvent(lifecycle) { event ->
             when (event) {
                 is MovieListViewModel.Event.LogOutSuccess -> {
-                    context.showToast("LogOut Success!")
+                    context.showToast("Logout Success!")
                     navHostController.navigate(AppDestination.Splash) {
                         popUpTo(AppDestination.MovieList.route) { inclusive = true }
                     }
@@ -110,32 +108,32 @@ fun MovieListScreen(
                 ) {
                     Image(
                         painter = painterResource(id = R.drawable.ic_movie),
-                        colorFilter = androidx.compose.ui.graphics.ColorFilter.tint(color = Color.Black),
+                        colorFilter = androidx.compose.ui.graphics.ColorFilter.tint(color = AppColors.Black),
                         contentDescription = null,
                         modifier = Modifier
-                            .padding(end = 8.dp, start = 16.dp)
-                            .width(30.dp)
-                            .height(30.dp)
+                            .padding(end = DpSize.dp8, start = DpSize.dp16)
+                            .width(DpSize.dp30)
+                            .height(DpSize.dp30)
                     )
                     Text(
                         text = "MOVIE APP",
-                        fontSize = 18.sp,
+                        fontSize = SpSize.sp18,
                         fontWeight = FontWeight.Bold,
                         textAlign = TextAlign.Center
                     )
                     Spacer(modifier = Modifier.weight(1f))
                     Image(
                         painter = painterResource(id = R.drawable.ic_logout),
-                        colorFilter = androidx.compose.ui.graphics.ColorFilter.tint(color = Indigo500),
+                        colorFilter = androidx.compose.ui.graphics.ColorFilter.tint(color = AppColors.Indigo),
                         contentDescription = null,
                         modifier = Modifier
-                            .padding(end = 24.dp)
+                            .padding(end = DpSize.dp24)
                             .clickable {
                                 viewModel.onHandleLogOut()
                             }
                     )
                 }
-            }, colors = TopAppBarDefaults.topAppBarColors(Yellow))
+            }, colors = TopAppBarDefaults.topAppBarColors(AppColors.Yellow))
         },
     ) {
         LaunchedEffect(key1 = Unit) {
@@ -194,65 +192,75 @@ fun MovieListScreen(
 private fun MovieItem(movie: Movie, onClickItem: (Int) -> Unit) {
     Card(
         modifier = Modifier
-            .padding(start = 16.dp, end = 16.dp, top = 8.dp, bottom = 8.dp)
+            .padding(start = DpSize.dp16, end = DpSize.dp16, top = DpSize.dp8, bottom = DpSize.dp8)
             .background(White)
             .fillMaxWidth(),
         onClick = {
             onClickItem(movie.id)
         },
         colors = CardDefaults.cardColors(
-            containerColor = BlackCard,
+            containerColor = AppColors.BlackCard,
         ),
         elevation = CardDefaults.cardElevation(
-            defaultElevation = 8.dp,
-            pressedElevation = 10.dp
+            defaultElevation = DpSize.dp8,
+            pressedElevation = DpSize.dp10
         )
     ) {
         Column(
-            modifier = Modifier.padding(10.dp)
+            modifier = Modifier.padding(DpSize.dp10)
         ) {
             Row {
                 Image(
                     painter = rememberAsyncImagePainter(Constants.BASE_URL_IMAGE + movie.urlImage),
                     contentDescription = null,
                     modifier = Modifier
-                        .width(80.dp)
-                        .height(70.dp)
+                        .width(DpSize.dp100)
+                        .height(DpSize.dp100)
                         .clip(
-                            RoundedCornerShape(10.dp)
-                        ),
-                    contentScale = ContentScale.FillBounds
+                            RoundedCornerShape(DpSize.dp50)
+                        )
+                        .shadow(elevation = DpSize.dp50, spotColor = AppColors.White),
+                    contentScale = ContentScale.FillBounds,
                 )
                 Column(
                     modifier = Modifier
                         .align(Alignment.CenterVertically)
-                        .padding(start = 10.dp)
+                        .padding(start = DpSize.dp16)
                 ) {
                     Text(
                         text = movie.title,
-                        fontSize = 16.sp,
+                        fontSize = SpSize.sp16,
                         color = White,
                         fontWeight = FontWeight.Bold,
                         maxLines = 1,
                         overflow = TextOverflow.Ellipsis
                     )
-                    Spacer(modifier = Modifier.size(6.dp))
+                    Spacer(modifier = Modifier.size(DpSize.dp6))
                     Text(
                         text = movie.overView,
-                        fontSize = 14.sp,
+                        fontSize = SpSize.sp14,
                         color = White,
                         maxLines = 2,
                         overflow = TextOverflow.Ellipsis
                     )
+                    Row(
+                        horizontalArrangement = Arrangement.End,
+                        verticalAlignment = Alignment.CenterVertically,
+                        modifier = Modifier.fillMaxWidth()
+                    ) {
+                        Text(
+                            text = movie.vote.toString(),
+                            color = White,
+                            fontSize = SpSize.sp14,
+                            fontWeight = FontWeight.Bold
+                        )
+                        Spacer(modifier = Modifier.size(DpSize.dp6))
+                        Image(
+                            painter = painterResource(id = R.drawable.ic_star),
+                            contentDescription = null
+                        )
+                    }
                 }
-            }
-            Row(
-                horizontalArrangement = Arrangement.End,
-                modifier = Modifier.fillMaxWidth()
-            ) {
-                Text(text = movie.vote.toString(), color = White)
-                Spacer(modifier = Modifier.size(6.dp))
-                Image(painter = painterResource(id = R.drawable.ic_star), contentDescription = null)
             }
         }
     }

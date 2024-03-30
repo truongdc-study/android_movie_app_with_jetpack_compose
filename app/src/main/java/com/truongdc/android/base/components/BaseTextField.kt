@@ -9,13 +9,12 @@ import androidx.compose.material.TextField
 import androidx.compose.material.TextFieldDefaults
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Modifier
-import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.input.ImeAction
 import androidx.compose.ui.text.input.PasswordVisualTransformation
 import androidx.compose.ui.text.input.VisualTransformation
-import androidx.compose.ui.unit.sp
-import com.truongdc.android.base.ui.theme.Yellow
+import com.truongdc.android.base.ui.theme.AppColors
+import com.truongdc.android.base.ui.theme.SpSize
 
 @Composable
 fun BaseTextField(
@@ -31,19 +30,19 @@ fun BaseTextField(
             .fillMaxWidth()
             .padding(paddingValues),
         value = value, onValueChange = onValueChange,
-        textStyle = TextStyle(fontSize = 18.sp),
+        textStyle = TextStyle(fontSize = SpSize.sp18),
         placeholder = {
             textPlaceholder?.let {
-                Text(text = it, color = Color.White)
+                Text(text = it, color = AppColors.White)
             }
         },
         maxLines = maxLines,
         colors = TextFieldDefaults.textFieldColors(
-            backgroundColor = Yellow,
-            focusedIndicatorColor = Color.White,
-            unfocusedIndicatorColor = Color.White,
-            disabledIndicatorColor = Color.White,
-            textColor = Color.Black
+            backgroundColor = AppColors.Yellow,
+            focusedIndicatorColor = AppColors.White,
+            unfocusedIndicatorColor = AppColors.White,
+            disabledIndicatorColor = AppColors.White,
+            textColor = AppColors.Black
         ),
         visualTransformation = if (isPassWord) PasswordVisualTransformation() else VisualTransformation.None,
         keyboardOptions = KeyboardOptions.Default.copy(
