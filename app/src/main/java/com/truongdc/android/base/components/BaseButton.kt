@@ -12,40 +12,40 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.text.font.FontWeight
 import androidx.compose.ui.unit.Dp
-import androidx.compose.ui.unit.dp
-import androidx.compose.ui.unit.sp
-import com.truongdc.android.base.ui.theme.BlackCard
+import com.truongdc.android.base.ui.theme.AppColors
+import com.truongdc.android.base.ui.theme.DpSize
+import com.truongdc.android.base.ui.theme.SpSize
 
 @Composable
 fun BaseButton(
     label: String,
     isEnable: Boolean = true,
     onClick: () -> Unit = {},
-    roundedCornerShape: Dp = 24.dp,
-    paddingValues: PaddingValues = PaddingValues(top = 8.dp, bottom = 8.dp)
+    roundedCornerShape: Dp = DpSize.dp24,
+    paddingValues: PaddingValues = PaddingValues(top = DpSize.dp8, bottom = DpSize.dp8)
 ) {
     Button(
         enabled = isEnable,
         onClick = { onClick() },
         shape = RoundedCornerShape(roundedCornerShape),
         colors = ButtonDefaults.buttonColors(
-            backgroundColor = Color.Black,
-            contentColor = Color.White,
-            disabledBackgroundColor = BlackCard
+            backgroundColor = AppColors.Black,
+            contentColor = AppColors.White,
+            disabledBackgroundColor = AppColors.BlackCard
         ),
         elevation = ButtonDefaults.elevation(
-            defaultElevation = 10.dp,
-            pressedElevation = 15.dp,
-            disabledElevation = 0.dp
+            defaultElevation = DpSize.dp10,
+            pressedElevation = DpSize.dp15,
+            disabledElevation = DpSize.dp0
         ),
         modifier = Modifier.fillMaxWidth()
     ) {
         Text(
             text = label,
-            color = if (isEnable) Color.White else Color.Gray,
+            color = if (isEnable) AppColors.White else AppColors.Gray,
             modifier = Modifier.padding(paddingValues),
             fontWeight = FontWeight.Bold,
-            fontSize = 18.sp
+            fontSize = SpSize.sp18
         )
     }
 }

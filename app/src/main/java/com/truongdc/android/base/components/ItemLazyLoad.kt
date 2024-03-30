@@ -13,8 +13,11 @@ import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.res.stringResource
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
+import com.truongdc.android.base.R
+import com.truongdc.android.base.ui.theme.DpSize
 
 
 @Composable
@@ -25,12 +28,12 @@ fun PageLoader(modifier: Modifier = Modifier) {
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
         Text(
-            text = "Fetching data from server",
+            text = stringResource(id = R.string.fetch_data_from_server),
             color = MaterialTheme.colorScheme.primary,
             maxLines = 1,
             overflow = TextOverflow.Ellipsis
         )
-        CircularProgressIndicator(Modifier.padding(top = 10.dp))
+        CircularProgressIndicator(Modifier.padding(top = DpSize.dp10))
     }
 }
 
@@ -39,7 +42,7 @@ fun LoadingNextPageItem(modifier: Modifier) {
     CircularProgressIndicator(
         modifier = modifier
             .fillMaxWidth()
-            .padding(10.dp)
+            .padding(DpSize.dp10)
             .wrapContentWidth(Alignment.CenterHorizontally)
     )
 }
@@ -51,7 +54,7 @@ fun ErrorMessage(
     onClickRetry: () -> Unit
 ) {
     Row(
-        modifier = modifier.padding(10.dp),
+        modifier = modifier.padding(DpSize.dp10),
         horizontalArrangement = Arrangement.SpaceBetween,
         verticalAlignment = Alignment.CenterVertically
     ) {
@@ -62,7 +65,7 @@ fun ErrorMessage(
             maxLines = 2
         )
         OutlinedButton(onClick = onClickRetry) {
-            Text(text = "Retry")
+            Text(text = stringResource(id = R.string.retry))
         }
     }
 }

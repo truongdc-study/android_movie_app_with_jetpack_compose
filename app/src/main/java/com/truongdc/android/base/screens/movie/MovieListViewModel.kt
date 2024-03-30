@@ -37,7 +37,7 @@ class MovieListViewModel @Inject constructor(
     }
 
     fun requestMovie() {
-        launchTaskSync(isLoading = true, onRequest = {
+        launchTaskSync(onRequest = {
             movieRepository.getMovies()
         }, onSuccess = { mFlowPagingMovie ->
             asyncUpdateUiState(viewModelScope) { state -> state.copy(flowPagingMovie = mFlowPagingMovie) }
