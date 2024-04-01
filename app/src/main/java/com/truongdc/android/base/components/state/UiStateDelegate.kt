@@ -1,6 +1,6 @@
 package com.truongdc.android.base.components.state
 
-import com.truongdc.android.core.source.remote.error.ErrorResponse
+import com.truongdc.android.base.data.remote.error.ErrorResponse
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.channels.Channel

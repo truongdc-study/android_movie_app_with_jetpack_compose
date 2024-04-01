@@ -2,8 +2,7 @@ package com.truongdc.android.base.utils.extensions
 
 import android.widget.ImageView
 import com.bumptech.glide.Glide
-import com.truongdc.android.core.utils.Constants
-
+import com.truongdc.android.base.utils.Constants
 
 fun ImageView.loadImageCircleWithUrl(url: String) {
     Glide.with(this)
