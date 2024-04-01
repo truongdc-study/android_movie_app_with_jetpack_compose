@@ -1,8 +1,12 @@
+import com.google.protobuf.gradle.id
+
 plugins {
     id(Plugins.KOTLIN_ANDROID)
     id(Plugins.ANDROID_APP)
     id(Plugins.KOTLIN_KAPT)
     id(Plugins.HILT_ANDROID)
+    id(Plugins.KOTLIN_PARCELIZE)
+    id(Plugins.PROTOBUF)
 }
 
 android {
@@ -45,30 +49,34 @@ android {
         create(Builds.Flavors.DEV) {
             applicationIdSuffix = ".${Builds.Flavors.DEV}"
             resValue("string", "app_name", "\"Base Dev\"")
+            buildConfigField("String", "BASE_API_URL", "\"https://api.themoviedb.org/3/\"")
         }
 
         create(Builds.Flavors.STG) {
             applicationIdSuffix = ".${Builds.Flavors.STG}"
             resValue("string", "app_name", "\"Base Stg\"")
+            buildConfigField("String", "BASE_API_URL", "\"https://api.themoviedb.org/3/\"")
         }
 
         create(Builds.Flavors.PROD) {
             resValue("string", "app_name", "\"Android Base\"")
+            buildConfigField("String", "BASE_API_URL", "\"https://api.themoviedb.org/3/\"")
         }
     }
 
     compileOptions {
-        sourceCompatibility = JavaVersion.VERSION_18
-        targetCompatibility = JavaVersion.VERSION_18
+        sourceCompatibility = JavaVersion.VERSION_17
+        targetCompatibility = JavaVersion.VERSION_17
     }
 
     kotlinOptions {
-        jvmTarget = JavaVersion.VERSION_18.toString()
+        jvmTarget = JavaVersion.VERSION_17.toString()
     }
 
     buildFeatures {
         compose = true
         viewBinding = true
+        buildConfig = true
     }
 
     composeOptions {
@@ -83,7 +91,6 @@ android {
 }
 
 dependencies {
-    implementation(project(Modules.CORE))
     implementation(Libs.AndroidX.CORE_KTX)
     implementation(Libs.AndroidX.LIFECYCLE_RUNTIME_KTX)
     implementation(Libs.AndroidX.ACTIVITY_COMPOSE)
@@ -114,4 +121,40 @@ dependencies {
     implementation(Libs.Paging.PAGING_TEST)
     implementation(Libs.Paging.PAGING_RUNTIME)
     debugImplementation(Libs.LEAK_CANARY)
+
+    implementation(Libs.Retrofit.RETROFIT)
+    implementation(Libs.Retrofit.RETROFIT_MOSHI)
+
+    implementation(Libs.Moshi.MOSHI)
+    implementation(Libs.Moshi.MOSHI_ADAPTER)
+    implementation(Libs.Moshi.MOSHI_KOTLIN)
+
+    implementation(Libs.LOGGING_INTERCEPTOR)
+    implementation(Libs.CHUCKER)
+
+    implementation(Libs.Protobuf.JAVALITE)
+    implementation(Libs.DataStore.DATA_STORE_PROTO)
+    implementation(Libs.DataStore.DATA_STORE_PROTO_CORE)
+    implementation(Libs.DataStore.DATA_STORE_PREFERENCES)
+}
+protobuf {
+    protoc {
+        artifact = "${Libs.Protobuf.PROTOC}:osx-x86_64"
+    }
+
+    plugins {
+        id("javalite") {
+            artifact = "${Libs.Protobuf.JAVALITE}:osx-x86_64"
+        }
+    }
+
+    generateProtoTasks {
+        all().forEach {
+            it.builtins {
+                create("java") {
+                    option("lite")
+                }
+            }
+        }
+    }
 }

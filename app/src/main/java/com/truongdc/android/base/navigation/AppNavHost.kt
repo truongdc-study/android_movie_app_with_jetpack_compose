@@ -9,10 +9,10 @@ import androidx.navigation.NavHostController
 import androidx.navigation.NavOptionsBuilder
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
-import com.truongdc.android.base.screens.login.LoginScreen
-import com.truongdc.android.base.screens.movie.MovieListScreen
-import com.truongdc.android.base.screens.register.RegisterScreen
-import com.truongdc.android.base.screens.slpash.SplashScreen
+import com.truongdc.android.base.ui.screens.login.LoginScreen
+import com.truongdc.android.base.ui.screens.movie.MovieListScreen
+import com.truongdc.android.base.ui.screens.register.RegisterScreen
+import com.truongdc.android.base.ui.screens.slpash.SplashScreen
 
 @Composable
 fun NavHostController.AppNavHost() {

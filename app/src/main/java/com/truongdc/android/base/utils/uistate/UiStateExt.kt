@@ -9,11 +9,10 @@ import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
 import com.truongdc.android.base.components.state.UiStateDelegate
-import com.truongdc.android.core.source.remote.error.ErrorResponse
+import com.truongdc.android.base.data.remote.error.ErrorResponse
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
-
 
 inline fun <T> Fragment.uiStateDiffRender(
     init: UiStateDiffRender.Builder<T>.() -> Unit
