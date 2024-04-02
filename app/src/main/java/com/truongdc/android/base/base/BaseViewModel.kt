@@ -14,6 +14,7 @@ abstract class BaseViewModel : ViewModel() {
         onRequest: suspend CoroutineScope.() -> DataResult<T>,
         onSuccess: (T) -> Unit = {},
         onError: (Exception) -> Unit = {},
+        onCompletion: () -> Unit = {},
     ) = viewModelScope.launch {
         if (isLoading) showLoading()
         when (val asynchronousTasks = onRequest(this)) {
@@ -22,7 +23,6 @@ abstract class BaseViewModel : ViewModel() {
                 val throwable = asynchronousTasks.exception
                 onError(throwable)
                 ErrorResponse.convertToRetrofitException(throwable).run {
-                    this.message
                     val errorResponse = getErrorResponse()
                     if (errorResponse != null) {
                         onSendErrorResponse(errorResponse)
@@ -36,6 +36,7 @@ abstract class BaseViewModel : ViewModel() {
         }
     }.also { job ->
         job.invokeOnCompletion {
+            onCompletion()
             if (isLoading) hideLoading()
         }
     }
