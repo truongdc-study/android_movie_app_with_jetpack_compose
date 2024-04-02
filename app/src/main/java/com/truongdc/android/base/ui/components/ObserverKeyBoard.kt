@@ -1,4 +1,4 @@
-package com.truongdc.android.base.components
+package com.truongdc.android.base.ui.components
 
 import android.view.View
 import android.view.ViewTreeObserver

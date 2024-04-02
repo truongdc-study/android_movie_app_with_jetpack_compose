@@ -8,7 +8,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.coroutineScope
 import androidx.lifecycle.flowWithLifecycle
 import androidx.lifecycle.lifecycleScope
-import com.truongdc.android.base.components.state.UiStateDelegate
+import com.truongdc.android.base.ui.components.state.UiStateDelegate
 import com.truongdc.android.base.data.remote.error.ErrorResponse
 import kotlinx.coroutines.Job
 import kotlinx.coroutines.flow.collectLatest
