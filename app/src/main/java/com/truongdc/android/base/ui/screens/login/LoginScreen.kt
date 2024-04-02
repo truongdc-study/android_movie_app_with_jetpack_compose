@@ -27,10 +27,10 @@ import androidx.compose.ui.tooling.preview.Preview
 import androidx.hilt.navigation.compose.hiltViewModel
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.truongdc.android.base.components.BaseButton
-import com.truongdc.android.base.components.BaseTextField
-import com.truongdc.android.base.components.LoadingContent
-import com.truongdc.android.base.components.ObserverKeyBoard
+import com.truongdc.android.base.ui.components.BaseButton
+import com.truongdc.android.base.ui.components.BaseTextField
+import com.truongdc.android.base.ui.components.LoadingContent
+import com.truongdc.android.base.ui.components.ObserverKeyBoard
 import com.truongdc.android.base.navigation.AppDestination
 import com.truongdc.android.base.navigation.navigate
 import com.truongdc.android.base.ui.theme.AppColors

@@ -2,8 +2,8 @@ package com.truongdc.android.base.ui.screens.movie_detail
 
 import androidx.lifecycle.viewModelScope
 import com.truongdc.android.base.base.BaseViewModel
-import com.truongdc.android.base.components.state.UiStateDelegate
-import com.truongdc.android.base.components.state.UiStateDelegateImpl
+import com.truongdc.android.base.ui.components.state.UiStateDelegate
+import com.truongdc.android.base.ui.components.state.UiStateDelegateImpl
 import com.truongdc.android.base.model.Movie
 import com.truongdc.android.base.data.repository.MovieRepository
 import dagger.hilt.android.lifecycle.HiltViewModel

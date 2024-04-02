@@ -1,4 +1,4 @@
-package com.truongdc.android.base.components
+package com.truongdc.android.base.ui.components
 
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -18,7 +18,6 @@ import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.unit.dp
 import com.truongdc.android.base.R
 import com.truongdc.android.base.ui.theme.DpSize
-
 
 @Composable
 fun PageLoader(modifier: Modifier = Modifier) {

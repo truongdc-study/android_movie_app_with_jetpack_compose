@@ -48,10 +48,10 @@ import androidx.paging.LoadState
 import androidx.paging.compose.collectAsLazyPagingItems
 import coil.compose.rememberAsyncImagePainter
 import com.truongdc.android.base.R
-import com.truongdc.android.base.components.ErrorMessage
-import com.truongdc.android.base.components.LoadingContent
-import com.truongdc.android.base.components.LoadingNextPageItem
-import com.truongdc.android.base.components.PageLoader
+import com.truongdc.android.base.ui.components.ErrorMessage
+import com.truongdc.android.base.ui.components.LoadingContent
+import com.truongdc.android.base.ui.components.LoadingNextPageItem
+import com.truongdc.android.base.ui.components.PageLoader
 import com.truongdc.android.base.navigation.AppDestination
 import com.truongdc.android.base.navigation.navigate
 import com.truongdc.android.base.ui.screens.movie_detail.MovieDetailActivity
