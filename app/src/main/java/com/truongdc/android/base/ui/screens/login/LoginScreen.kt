@@ -61,7 +61,7 @@ fun LoginScreen(
             when (event) {
                 LoginViewModel.Event.LoginSuccess -> {
                     context.showToast("Login Success!")
-                    navHostController.navigate(AppDestination.MovieList) {
+                    navHostController.navigate(AppDestination.DashBoard) {
                         popUpTo(AppDestination.Login.route) { inclusive = true }
                     }
                 }
