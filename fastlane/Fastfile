@@ -1,0 +1,49 @@
+# This file contains the fastlane.tools configuration
+# You can find the documentation at https://docs.fastlane.tools
+#
+# For a list of all available actions, check out
+#
+#     https://docs.fastlane.tools/actions
+#
+# For a list of all available plugins, check out
+#
+#     https://docs.fastlane.tools/plugins/available-plugins
+#
+
+# Uncomment the line if you want fastlane to automatically update itself
+# update_fastlane
+
+default_platform(:android)
+
+platform :android do
+    desc "Distribute Android App"
+    lane :android_development do
+        firebase_app_distribution(
+            app: "{Your Firebase App ID}",
+            groups: "Sun-All",
+            release_notes_file: "CHANGELOG.md",
+            firebase_cli_path: "/usr/local/bin/firebase",
+            apk_path: "app/build/outputs/apk/dev/release/app-dev-release.apk"
+        )
+    end
+
+    lane :android_staging do
+        firebase_app_distribution(
+            app: "{Your Firebase App ID}",
+            groups: "Sun-All",
+            release_notes: "CHANGELOG.md",
+            firebase_cli_path: "/usr/local/bin/firebase",
+            apk_path: "app/build/outputs/apk/stg/release/app-stg-release.apk"
+        )
+    end
+
+    lane :android_production do
+        firebase_app_distribution(
+            app: "{Your Firebase App ID}",
+            groups: "Sun-All",
+            release_notes: "CHANGELOG.md",
+            firebase_cli_path: "/usr/local/bin/firebase",
+            apk_path: "app/build/outputs/apk/prod/release/app-prod-release.apk"
+        )
+    end
+end
