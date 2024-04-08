@@ -31,7 +31,7 @@ platform :android do
         firebase_app_distribution(
             app: "{Your Firebase App ID}",
             groups: "Sun-All",
-            release_notes: "CHANGELOG.md",
+            release_notes_file: "CHANGELOG.md",
             firebase_cli_path: "/usr/local/bin/firebase",
             apk_path: "app/build/outputs/apk/stg/release/app-stg-release.apk"
         )
@@ -41,7 +41,7 @@ platform :android do
         firebase_app_distribution(
             app: "{Your Firebase App ID}",
             groups: "Sun-All",
-            release_notes: "CHANGELOG.md",
+            release_notes_file: "CHANGELOG.md",
             firebase_cli_path: "/usr/local/bin/firebase",
             apk_path: "app/build/outputs/apk/prod/release/app-prod-release.apk"
         )
