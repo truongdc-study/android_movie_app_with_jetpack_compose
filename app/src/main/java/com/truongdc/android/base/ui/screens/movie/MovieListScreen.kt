@@ -8,6 +8,7 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.PaddingValues
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxWidth
@@ -72,7 +73,8 @@ import com.truongdc.android.base.utils.Constants
 @Composable
 fun MovieListScreen(
     navHostController: NavHostController = rememberNavController(),
-    viewModel: MovieListViewModel = hiltViewModel()
+    viewModel: MovieListViewModel = hiltViewModel(),
+    paddingValues: PaddingValues = PaddingValues()
 ) {
     val context = LocalContext.current
     val lifecycle = LocalLifecycleOwner.current
@@ -100,85 +102,49 @@ fun MovieListScreen(
             }
         }
     }
-    Scaffold(
-        topBar = {
-            TopAppBar(title = {
-                Row(
-                    verticalAlignment = Alignment.CenterVertically
-                ) {
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_movie),
-                        colorFilter = androidx.compose.ui.graphics.ColorFilter.tint(color = AppColors.Black),
-                        contentDescription = null,
-                        modifier = Modifier
-                            .padding(end = DpSize.dp8, start = DpSize.dp16)
-                            .width(DpSize.dp30)
-                            .height(DpSize.dp30)
-                    )
-                    Text(
-                        text = "MOVIE APP",
-                        fontSize = SpSize.sp18,
-                        fontWeight = FontWeight.Bold,
-                        textAlign = TextAlign.Center
-                    )
-                    Spacer(modifier = Modifier.weight(1f))
-                    Image(
-                        painter = painterResource(id = R.drawable.ic_logout),
-                        colorFilter = androidx.compose.ui.graphics.ColorFilter.tint(color = AppColors.Indigo),
-                        contentDescription = null,
-                        modifier = Modifier
-                            .padding(end = DpSize.dp24)
-                            .clickable {
-                                viewModel.onHandleLogOut()
-                            }
-                    )
+
+    LaunchedEffect(key1 = Unit) {
+        viewModel.requestMovie()
+    }
+    LoadingContent(isLoading = isLoading) {
+        uiState.flowPagingMovie?.let { pagingData ->
+            val pagingItems = pagingData.collectAsLazyPagingItems()
+            LazyColumn(modifier = Modifier.padding(paddingValues)) {
+                item { Spacer(modifier = Modifier.padding(5.dp)) }
+                items(pagingItems.itemCount) { index ->
+                    MovieItem(movie = pagingItems[index]!!, onClickItem = { movieId ->
+                        val intent = Intent(context, MovieDetailActivity::class.java)
+                        intent.putExtra("MOVIE_ID", movieId)
+                        context.startActivity(intent)
+                    })
                 }
-            }, colors = TopAppBarDefaults.topAppBarColors(AppColors.Yellow))
-        },
-    ) {
-        LaunchedEffect(key1 = Unit) {
-            viewModel.requestMovie()
-        }
-        LoadingContent(isLoading = isLoading) {
-            uiState.flowPagingMovie?.let { pagingData ->
-                val pagingItems = pagingData.collectAsLazyPagingItems()
-                LazyColumn(modifier = Modifier.padding(it)) {
-                    item { Spacer(modifier = Modifier.padding(5.dp)) }
-                    items(pagingItems.itemCount) { index ->
-                        MovieItem(movie = pagingItems[index]!!, onClickItem = { movieId ->
-                            val intent = Intent(context, MovieDetailActivity::class.java)
-                            intent.putExtra("MOVIE_ID", movieId)
-                            context.startActivity(intent)
-                        })
-                    }
-                    pagingItems.apply {
-                        when {
-                            loadState.refresh is LoadState.Loading -> {
-                                item { PageLoader(modifier = Modifier.fillParentMaxSize()) }
-                            }
+                pagingItems.apply {
+                    when {
+                        loadState.refresh is LoadState.Loading -> {
+                            item { PageLoader(modifier = Modifier.fillParentMaxSize()) }
+                        }
 
-                            loadState.refresh is LoadState.Error -> {
-                                val error = pagingItems.loadState.refresh as LoadState.Error
-                                item {
-                                    ErrorMessage(
-                                        modifier = Modifier.fillParentMaxSize(),
-                                        message = error.error.localizedMessage!!,
-                                        onClickRetry = { retry() })
-                                }
+                        loadState.refresh is LoadState.Error -> {
+                            val error = pagingItems.loadState.refresh as LoadState.Error
+                            item {
+                                ErrorMessage(
+                                    modifier = Modifier.fillParentMaxSize(),
+                                    message = error.error.localizedMessage!!,
+                                    onClickRetry = { retry() })
                             }
+                        }
 
-                            loadState.append is LoadState.Loading -> {
-                                item { LoadingNextPageItem(modifier = Modifier) }
-                            }
+                        loadState.append is LoadState.Loading -> {
+                            item { LoadingNextPageItem(modifier = Modifier) }
+                        }
 
-                            loadState.append is LoadState.Error -> {
-                                val error = pagingItems.loadState.append as LoadState.Error
-                                item {
-                                    ErrorMessage(
-                                        modifier = Modifier,
-                                        message = error.error.localizedMessage!!,
-                                        onClickRetry = { retry() })
-                                }
+                        loadState.append is LoadState.Error -> {
+                            val error = pagingItems.loadState.append as LoadState.Error
+                            item {
+                                ErrorMessage(
+                                    modifier = Modifier,
+                                    message = error.error.localizedMessage!!,
+                                    onClickRetry = { retry() })
                             }
                         }
                     }
@@ -186,6 +152,7 @@ fun MovieListScreen(
             }
         }
     }
+
 }
 
 @Composable

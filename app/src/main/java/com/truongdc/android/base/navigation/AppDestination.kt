@@ -26,4 +26,6 @@ sealed class AppDestination(
     data object Login: AppDestination("login")
 
     data object Register: AppDestination("register")
+
+    data object DashBoard: AppDestination("dashboard")
 }

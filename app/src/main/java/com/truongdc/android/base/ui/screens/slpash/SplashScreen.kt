@@ -38,7 +38,7 @@ fun SplashScreen(
         viewModel.getIsLogin().collect { isLogin ->
             delay(1500)
             if (isLogin) {
-                navHostController.navigate(AppDestination.MovieList) {
+                navHostController.navigate(AppDestination.DashBoard) {
                     popUpTo(AppDestination.Splash.route) { inclusive = true }
                 }
             } else {
