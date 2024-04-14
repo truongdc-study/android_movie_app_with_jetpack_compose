@@ -9,6 +9,7 @@ import androidx.navigation.NavHostController
 import androidx.navigation.NavOptionsBuilder
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
+import com.truongdc.android.base.ui.screens.CustomSeekbar
 import com.truongdc.android.base.ui.screens.login.LoginScreen
 import com.truongdc.android.base.ui.screens.movie.MovieListScreen
 import com.truongdc.android.base.ui.screens.register.RegisterScreen
@@ -18,7 +19,7 @@ import com.truongdc.android.base.ui.screens.slpash.SplashScreen
 fun NavHostController.AppNavHost() {
     NavHost(navController = this, startDestination = AppDestination.Splash.destination) {
         composable(AppDestination.Splash) {
-            SplashScreen(navHostController = this@AppNavHost)
+            CustomSeekbar()
         }
         composable(AppDestination.MovieList) {
             MovieListScreen(navHostController = this@AppNavHost)
